@@ -1,7 +1,6 @@
 import turtle
 import config
 
-# DEREK IS THE COOLEST IN THE WORLD
 # Window Screen
 
 wn = turtle.Screen()
@@ -49,6 +48,8 @@ wn.onkeypress(paddle_left, "a")
 wn.onkeypress(paddle_right, "d")
 
 
+def poop():
+    return "cum"
 
 
 
