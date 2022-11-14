@@ -51,6 +51,7 @@ wn.onkeypress(paddle_right, "d")
 def poop():
     return "cum"
 
+print("im pregnant")
 
 
 
