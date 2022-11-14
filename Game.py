@@ -1,6 +1,7 @@
 import turtle
 import config
 
+# DEREK IS THE COOLEST
 # Window Screen
 
 wn = turtle.Screen()
