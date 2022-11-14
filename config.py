@@ -1,0 +1,1 @@
+paddle_move_distance = 20
