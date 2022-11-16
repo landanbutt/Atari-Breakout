@@ -6,6 +6,7 @@ paddle = turtle.Turtle()
 ball = turtle.Turtle()
 life_counter = turtle.Turtle()
 global life_count
+global play
 
 
 def initialize_game_variables():
@@ -47,6 +48,13 @@ def initialize_game_variables():
     ball.goto(0, 0)
 
 
+def initialize_window():
+    wn.onkeypress(paddle_left, "a")
+    wn.onkeypress(paddle_right, "d")
+    wn.onkeypress(play_on, "space")
+    wn.listen()
+
+
 # Paddle Movement
 
 def paddle_left():
@@ -64,28 +72,20 @@ def paddle_right():
 # Game Start
 
 def play_on():
+    if not play:
+        run_game_loop()
+
+
+def run_game_loop():
+    global life_count
     global play
     play = True
-    print("play")
 
-
-def main():
-    global play
-    play = False
-    global life_count
     life_count = 3
-    initialize_game_variables()
-    wn.listen()
-    wn.onkeypress(paddle_left, "a")
-    wn.onkeypress(paddle_right, "d")
-    wn.onkeypress(play_on, "space")
+    life_counter.clear()
+    life_counter.write(life_count * "_ ", align="center", font=("Courier", 48, "normal"))
 
-    # Main Game Loop
-    print("here1")
-    print(life_count)
-    print(play)
-    while life_count > 0 and play:
-        print("here")
+    while life_count > 0:
         wn.update()
 
         # Ball Movement
@@ -124,17 +124,21 @@ def main():
             ball.sety(paddle.ycor() + 10)
             config.bally_move_speed *= -1
 
-        if life_count == 0:
-            play = False
+    play = False
 
-        while not play:
-            pass
 
-        life_count = 3
-        life_counter.clear()
-        life_counter.write(life_count * "_ ", align="center", font=("Courier", 48, "normal"))
+def main():
+    # Variable setup
+    global play
+    global life_count
+    life_count = 3
+
+    play = False
+
+    # Game setup
+    initialize_game_variables()
+    initialize_window()
 
     wn.exitonclick()
-
 
 main()
