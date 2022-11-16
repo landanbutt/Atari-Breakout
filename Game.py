@@ -1,5 +1,6 @@
 import turtle
 import config
+
 wn = turtle.Screen()
 paddle = turtle.Turtle()
 ball = turtle.Turtle()
@@ -132,7 +133,6 @@ def main():
         life_count = 3
         life_counter.clear()
         life_counter.write(life_count * "_ ", align="center", font=("Courier", 48, "normal"))
-
 
     wn.exitonclick()
 
