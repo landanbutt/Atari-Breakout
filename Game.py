@@ -1,15 +1,33 @@
 import turtle
 import config
 
-wn = turtle.Screen()
-paddle = turtle.Turtle()
-ball = turtle.Turtle()
-life_counter = turtle.Turtle()
+
+# The total lives the user has to play with
 global life_count
+# A flag that signals if the user is playing a game
 global play
+# The window that is listening for input from the user
+global wn
+# The paddle the user plays with
+global paddle
+# The ball the user plays with
+global ball
+# DESCRIBE THIS PUSSY
+global life_counter
 
 
+# Sets up all the necessary variables for the game to function
 def initialize_game_variables():
+
+    global wn
+    global paddle
+    global ball
+    global life_counter
+
+    wn = turtle.Screen()
+    paddle = turtle.Turtle()
+    ball = turtle.Turtle()
+    life_counter = turtle.Turtle()
 
     # Window Screen
 
@@ -48,6 +66,7 @@ def initialize_game_variables():
     ball.goto(0, 0)
 
 
+# Set up the window to listen for key presses from the user
 def initialize_window():
     wn.onkeypress(paddle_left, "a")
     wn.onkeypress(paddle_right, "d")
@@ -69,21 +88,32 @@ def paddle_right():
     paddle.setx(x)
 
 
-# Game Start
+# Resets the player's lives
+def reset_lives():
+    global life_count
+    # Resetting the lives count since a new game is beginning
+    life_count = 3
+    life_counter.clear()
+    life_counter.write(life_count * "_ ", align="center", font=("Courier", 48, "normal"))
 
+
+# This function handles whenever the user presses the space bar, and attempts to start a new game
 def play_on():
+    # Only start a new game if one is not already in progress
     if not play:
         run_game_loop()
 
 
+# This function contains the actual game logic, which is a loop that terminates when the user runs out
+# of lives
 def run_game_loop():
+    # Declaring global variables, and setting the 'play' flag to true, since a game has begun
     global life_count
     global play
     play = True
 
-    life_count = 3
-    life_counter.clear()
-    life_counter.write(life_count * "_ ", align="center", font=("Courier", 48, "normal"))
+    # Resetting the player's lives since a new game is beginning
+    reset_lives()
 
     while life_count > 0:
         wn.update()
@@ -124,9 +154,13 @@ def run_game_loop():
             ball.sety(paddle.ycor() + 10)
             config.bally_move_speed *= -1
 
+    # At this point, the 'play' flag can be set to false, since we are out of the while loop
+    # and the game is over
     play = False
 
 
+# This is the function that drives the overall logic, it sets up the environment, and then controls
+# the main flow of execution
 def main():
     # Variable setup
     global play
@@ -139,6 +173,13 @@ def main():
     initialize_game_variables()
     initialize_window()
 
+    # The game will now be run whenever the user presses the space bar,
+    # as this will trigger the play_on() function which executes the main game loop
+
+    # If the user ever clicks the screen, this will trigger this line, which will cause this main()
+    # function to exit and the program to end
     wn.exitonclick()
 
+
+# Executing the main game logic
 main()
